@@ -4,27 +4,84 @@ author: "Kennedy Wade"
 date: "2025-09-19"
 output: html_document
 ---
+## Problem 0.1 / 0.2
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+Use R Markdown to write reproducible reports, GitHub for version control, and R Projects to organize your work.Create a public GitHub repo + local R Project,create a single .Rmd file named p8105_hw1_YOURUNI.Rmd that renders to github_document, submit a link to your repo via Courseworks.
+
+
+## Problem 1
+
+This “problem” focuses on correct styling for your solutions to Problems 1 and 2. 
+
+```{r}
+ # load packages
+library(moderndive)
+library(dplyr)
+library(ggplot2)
+
+# load the dataset
+data("early_january_weather")
+
+#mean temperature
+mean_temp = mean(pull(early_january_weather, temp))
+
+# scatterplot: temp vs time_hour, colored by humidity
+ggplot(early_january_weather, aes(x = time_hour, y = temp, color = humid)) +
+  geom_point() +
+  labs(
+    title = "Temperature vs Time ",
+    x = "Hour",
+    y = "Temperature (°C)",
+    color = "Humidity (%)"
+  ) 
+
+# export plot
+ggsave("weather_scatterplot.png")
+
+
 ```
 
-## R Markdown
+The `early_january_weather` dataset has `r nrow(early_january_weather)` rows and `r ncol(early_january_weather)` columns.The variables names (columns) included are origin, year, month, day, hour, temp, dewp, humid, wind_direction, wind_speed, wind_gust,precipitation, pressure, visb, and time_hour. The mean temperature during this period was `r round(mean_temp, 2)` °C.The weather scatter plot shows
+that temperatures are generally lower in the early morning hours, rise throughout the day, and peak in the afternoon. Humidity tends to be higher when temperatures are lower and decreases slightly as temperatures increase. The points are fairly evenly spread, and the color gradient effectively highlights changes in humidity throughout the day.
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+## Problem 2
 
-```{r cars}
-summary(cars)
+This problem is intended to emphasize variable types and introduce coercion; some awareness of how R treats numeric, character, and factor variables is necessary for working with these data types in practice.
+
+Let's create a dataframe.
+
+```{r}
+library(tidyverse)  
+
+hw1_df <- tibble(
+  vec_numeric = rnorm(10),                     
+  vec_logical = vec_numeric > 0,                  
+  vec_char = letters[1:10],                       
+  vec_factor = factor(rep(c("1", "2", "3"), length.out = 10)) 
+)
+
+#Trying to take the mean of each variable using pull
+mean(pull(hw1_df, vec_numeric))
+mean(pull(hw1_df, vec_logical))
 ```
 
-## Including Plots
+Now, convert variables to numeric using `as.numeric`
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r}
+# Convert variables to numeric
+as_numeric_logical <- as.numeric(pull(hw1_df, vec_logical)) 
+as_numeric_char <- as.numeric(pull(hw1_df, vec_char))   
+as_numeric_factor <- as.numeric(pull(hw1_df, vec_factor)) 
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+When I first tried to take the mean of each variable in my dataframe, found that it worked for numeric and logical variables but did not work for character or factor variables. The character code failed because text values cannot be averaged and factors failed because factors are categorical and mean () does not work on them directly. After applying the `as.numeric()`code, logical values turned into 0s and 1s, character values became NA, and factors turned into numbers that represent their levels. This is why only numeric and logical variables can be averaged directly.
+
+
+
+
+
+
+
+
+
