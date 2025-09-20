@@ -2,11 +2,11 @@
 title: "p8105_hw1_kjw2175"
 author: "Kennedy Wade"
 date: "2025-09-19"
-output: html_document
+output: github_document
 ---
 ## Problem 0.1 / 0.2
 
-Use R Markdown to write reproducible reports, GitHub for version control, and R Projects to organize your work.Create a public GitHub repo + local R Project,create a single .Rmd file named p8105_hw1_YOURUNI.Rmd that renders to github_document, submit a link to your repo via Courseworks.
+This homework is organized in a public GitHub repo with a local R Project. The repo includes this .Rmd file, the knitted markdown document, and the exported plot. My commit history shows the steps I used to complete the assignment.
 
 
 ## Problem 1
@@ -60,14 +60,15 @@ hw1_df <- tibble(
   vec_factor = factor(rep(c("1", "2", "3"), length.out = 10)) 
 )
 
-#Trying to take the mean of each variable using pull
-mean(pull(hw1_df, vec_numeric))
-mean(pull(hw1_df, vec_logical))
 ```
 
 Now, convert variables to numeric using `as.numeric`
 
 ```{r}
+#Trying to take the mean of each variable using pull
+mean(pull(hw1_df, vec_numeric))
+mean(pull(hw1_df, vec_logical))
+
 # Convert variables to numeric
 as_numeric_logical <- as.numeric(pull(hw1_df, vec_logical)) 
 as_numeric_char <- as.numeric(pull(hw1_df, vec_char))   
@@ -75,6 +76,8 @@ as_numeric_factor <- as.numeric(pull(hw1_df, vec_factor))
 ```
 
 When I first tried to take the mean of each variable in my dataframe, found that it worked for numeric and logical variables but did not work for character or factor variables. The character code failed because text values cannot be averaged and factors failed because factors are categorical and mean () does not work on them directly. After applying the `as.numeric()`code, logical values turned into 0s and 1s, character values became NA, and factors turned into numbers that represent their levels. This is why only numeric and logical variables can be averaged directly.
+
+
 
 
 
