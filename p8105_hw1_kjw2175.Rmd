@@ -16,7 +16,6 @@ This “problem” focuses on correct styling for your solutions to Problems 1 a
 ```{r}
  # load packages
 library(moderndive)
-library(dplyr)
 library(ggplot2)
 
 # load the dataset
@@ -41,7 +40,9 @@ ggsave("weather_scatterplot.png")
 
 ```
 
-The `early_january_weather` dataset has `r nrow(early_january_weather)` rows and `r ncol(early_january_weather)` columns. The variables names (columns) included are origin, year, month, day, hour, temp, dewp, humid, wind_direction, wind_speed, wind_gust, precipitation, pressure, visb, and time_hour. The mean temperature during this period was `r round(mean_temp, 2)` °C.The weather scatter plot shows that temperatures are generally lower in the early morning hours, rise throughout the day, and peak in the afternoon. Humidity tends to be higher when temperatures are higher and decreases slightly as temperatures decrease. The points are fairly evenly spread, and the color gradient effectively highlights changes in humidity throughout the day.
+The `early_january_weather` dataset has `r nrow(early_january_weather)` rows and `r ncol(early_january_weather)` columns. The variables names (columns) included are origin, year, month, day, hour, temp, dewp, humid, wind_direction, wind_speed, wind_gust, precipitation, pressure, visb, and time_hour. The mean temperature during this period was `r round(mean_temp, 2)` °C.
+
+The scatterplot of temperature vs. time_hour (colored by humidity) shows that temperatures fluctuate over the first two weeks of January, with a slight upward trend overall. Humidity tends to be higher when temperatures are higher and decreases slightly as temperatures decrease. The points are fairly evenly spread, and the color gradient effectively highlights changes in humidity throughout the day.
 
 
 ## Problem 2
